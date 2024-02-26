@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: synergychat-testram-configmap
 data:
-  MEGABYTES: "500"
+  MEGABYTES: "20"
 
