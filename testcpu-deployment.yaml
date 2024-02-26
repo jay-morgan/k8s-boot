@@ -18,4 +18,4 @@ spec:
           name: synergychat-testcpu
           resources:
             limits:
-              cpu: 50m
+              cpu: 10m
