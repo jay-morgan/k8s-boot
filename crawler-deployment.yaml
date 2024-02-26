@@ -20,14 +20,17 @@ spec:
       containers:
         - name: synergychat-crawler-1
           image: bootdotdev/synergychat-crawler:latest
-          envFrom:
-            - configMapRef:
-                name: synergychat-crawler-configmap
           volumeMounts:
             - name: cache-volume
               mountPath: /cache
+          envFrom:
+            - configMapRef:
+                name: synergychat-crawler-configmap
         - name: synergychat-crawler-2
           image: bootdotdev/synergychat-crawler:latest
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
           env:
             - name: CRAWLER_KEYWORDS
               valueFrom:
@@ -39,20 +42,29 @@ spec:
                 configMapKeyRef:
                   name: synergychat-crawler-configmap
                   key: CRAWLER_DB_PATH
-            - name: CRAWLER_PORT_2 # MAP THIS TO CRAWLER_PORT and repeat for container 3 
+            - name: CRAWLER_PORT 
               valueFrom:
                 configMapKeyRef:
                   name: synergychat-crawler-configmap
-                  key: CRAWLER_PORT_2
-          volumeMounts:
-            - name: cache-volume
-              mountPath: /cache
+                  key: CRAWLER_PORT_2 
         - name: synergychat-crawler-3
           image: bootdotdev/synergychat-crawler:latest
-          envFrom:
-            - configMapRef:
-                name: synergychat-crawler-configmap
           volumeMounts:
             - name: cache-volume
               mountPath: /cache
-
+          env:
+            - name: CRAWLER_KEYWORDS
+              valueFrom:
+                configMapKeyRef:
+                  name: synergychat-crawler-configmap
+                  key: CRAWLER_KEYWORDS
+            - name: CRAWLER_DB_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: synergychat-crawler-configmap
+                  key: CRAWLER_DB_PATH
+            - name: CRAWLER_PORT 
+              valueFrom:
+                configMapKeyRef:
+                  name: synergychat-crawler-configmap
+                  key: CRAWLER_PORT_3
