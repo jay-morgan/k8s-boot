@@ -14,10 +14,32 @@ spec:
       labels:
         app: synergychat-crawler
     spec:
+      volumes:
+        - name: cache-volume
+          emptyDir: {}
       containers:
-        - name: synergychat-crawler
+        - name: synergychat-crawler-1
           image: bootdotdev/synergychat-crawler:latest
           envFrom:
             - configMapRef:
                 name: synergychat-crawler-configmap
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
+        - name: synergychat-crawler-2
+          image: bootdotdev/synergychat-crawler:latest
+          envFrom:
+            - configMapRef:
+                name: synergychat-crawler-configmap
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
+        - name: synergychat-crawler-3
+          image: bootdotdev/synergychat-crawler:latest
+          envFrom:
+            - configMapRef:
+                name: synergychat-crawler-configmap
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
 
